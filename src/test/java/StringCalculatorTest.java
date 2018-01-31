@@ -1,11 +1,13 @@
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
-
+import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Tdd training on 31.01.18.
  */
+@RunWith(JUnitParamsRunner.class)
 
 public class StringCalculatorTest {
 
@@ -17,38 +19,35 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void shouldRturnOneWhenOnePassed() {
+    public void shouldReturnOneWhenOnePassed() {
         StringCalculator testedObject = new StringCalculator();
-        int result = testedObject.Add("1");
-        assertThat(result).isEqualTo(1);
+        assertThat(testedObject).isNotNull();
+        assertThat(testedObject.Add("1")).isEqualTo(1);
     }
 
     @Test
-    public void shouldRturnTwoWhenOneAndOnePassed() {
+    public void shouldReturnTwoWhenOneAndOnePassed() {
         StringCalculator testedObject = new StringCalculator();
-        int result = testedObject.Add("1,1");
-        assertThat(result).isEqualTo(2);
+        assertThat(testedObject).isNotNull();
+        assertThat(testedObject.Add("1,2")).isEqualTo(3);
+    }
+
+    private Object[][] numbersTab() {
+        return new Object[][]{
+                {"1",1},
+                {"1,2",3},
+                {"10,20",30},
+                {"",0},
+        };
     }
 
     @Test
-    public void shouldRturnTwentyOneWhenOneAndTwentyPassed() {
+    @Parameters(method = "numbersTab")
+    public void shouldReturn(String input , int result) {
         StringCalculator testedObject = new StringCalculator();
-        int result = testedObject.Add("1,20");
-        assertThat(result).isEqualTo(21);
+        int addResult = testedObject.Add(input);
+        assertThat(addResult).isEqualTo(result);
     }
 
-    @Test
-    public void shouldRturnTwoThousandWhenThousandAndThousandPassed() {
-        StringCalculator testedObject = new StringCalculator();
-        int result = testedObject.Add("1000,1000");
-        assertThat(result).isEqualTo(2000);
-    }
 
-    @Test
-    public void shouldRturnThreeWhenOneAndOneAndOnePassed() {
-        StringCalculator testedObject = new StringCalculator();
-        int result = testedObject.Add("1,1,1");
-        assertThat(result).isEqualTo(3);
-
-    }
 }

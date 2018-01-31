@@ -2,7 +2,6 @@ import java.util.Arrays;
 
 public class StringCalculator {
 
-
     public int Add(String numbers) {
         if(numbers.length() > 0) {
             int sum = 0;
